@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 
@@ -8,7 +7,16 @@ class RecipeBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repo: [],
+      repo: [{
+        title: "cappuccino",
+        ingredients: ["milk", "sugar", "coffee", "water"]
+      }, {
+        title: "latte",
+        ingredients: ["water", "sugar", "coffee"]
+      }, {
+        title: "tea",
+        ingredients: ["water", "milk", "tea"]
+      }],
       showAddPrompt: false,
       showEditPrompt: false,
       editRecipe: [],
@@ -52,8 +60,9 @@ class RecipeBox extends React.Component {
     if (x !== "name" && y !== "ingredients") {
       var arrayvar = this.state.repo.slice()
       arrayvar.push({
-        ingredients: y.split(','),
-        title: x
+          title: x,
+        ingredients: y.split(',')
+
       })
 
       this.setState({
@@ -67,6 +76,8 @@ class RecipeBox extends React.Component {
   }
 
   openRecipe(event) {
+
+    console.log(JSON.parse(localStorage.getItem('_kalpitp_recipes'))[0].title)
 
     const {
       id
@@ -122,38 +133,31 @@ class RecipeBox extends React.Component {
 
   }
 
-  setInit() {
-    if (!localStorage._kalpitp_recipes || typeof(localStorage._kalpitp_recipes) != "undefined") {
-      var initRecipe = [{
-        title: "cappuccino",
-        ingredients: ["milk", "sugar", "coffee", "water"]
-      }, {
-        title: "latte",
-        ingredients: ["water", "sugar", "coffee"]
-      }, {
-        title: "tea",
-        ingredients: ["water", "milk", "tea"]
-      }]
+  componentDidMount  () {
+      var initRecipe=[];
+      console.log(JSON.parse(localStorage.getItem('_kalpitp_recipes')))
 
+    if (typeof(localStorage._kalpitp_recipes) != "undefined") {
+
+    var temp= JSON.parse(localStorage.getItem('_kalpitp_recipes'))
+
+      for (var i=0;i<temp.length;i++)
+      {
+        initRecipe[i]={title:temp[i].title,ingredients:temp[i].ingredients}
+      }
       this.setState({
         repo: initRecipe
-      })
-
-      localStorage.setItem('_kalpitp_recipes', JSON.stringify(initRecipe));
-
-    } else {
-      this.setState({
-        repo: (JSON.parse(localStorage.getItem('_kalpitp_recipes')))
 
       })
 
     }
-
+    console.log(initRecipe)
   }
 
+
+
   render() {
-    if (this.state.repo.length == 0)
-      this.setInit()
+
 
     return (
       <div className="viewController">
