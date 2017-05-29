@@ -77,7 +77,6 @@ class RecipeBox extends React.Component {
 
   openRecipe(event) {
 
-    console.log(JSON.parse(localStorage.getItem('_kalpitp_recipes'))[0].title)
 
     const {
       id
@@ -135,7 +134,6 @@ class RecipeBox extends React.Component {
 
   componentDidMount  () {
       var initRecipe=[];
-      console.log(JSON.parse(localStorage.getItem('_kalpitp_recipes')))
 
     if (typeof(localStorage._kalpitp_recipes) != "undefined") {
 
