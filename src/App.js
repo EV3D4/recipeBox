@@ -73,7 +73,6 @@ class RecipeBox extends React.Component {
     }
 
     localStorage.setItem('_kalpitp_recipes', JSON.stringify(arrayvar));
-    console.log(JSON.parse(localStorage.getItem('_kalpitp_recipes')))
   }
 
   openRecipe(event) {
@@ -149,7 +148,6 @@ class RecipeBox extends React.Component {
 
       })
     }
-        localStorage.setItem('_kalpitp_recipes', JSON.stringify(this.state.repo));
 
   }
 
